@@ -11,7 +11,6 @@ export function toTopicEntity(model: Model<TTopicEntity>): TTopicEntity {
         content: data.content,
         imageUrl: data.imageUrl,
         title: data.title,
-        isPinned: data.isPinned,
         views: data.views,
         createdAt: data.createdAt,
         updatedAt: data.updatedAt,

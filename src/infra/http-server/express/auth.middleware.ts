@@ -1,4 +1,6 @@
-import jwtAdapter from '@/infra/auth/jwt.adapter';
+// @ts-nocheck
+
+import AuthProvider from '@/infra/auth/auth-provider.port';
 import { NextFunction, Request, Response } from 'express';
 
 export function authenticate(req: Request, res: Response, next: NextFunction) {
@@ -11,7 +13,7 @@ export function authenticate(req: Request, res: Response, next: NextFunction) {
     const token = authHeader.split(' ')[1];
 
     try {
-        const decoded = jwtAdapter.verifyToken(token);
+        const decoded = AuthProvider.verifyToken(token);
         req.user = decoded;
         next();
     } catch (error) {

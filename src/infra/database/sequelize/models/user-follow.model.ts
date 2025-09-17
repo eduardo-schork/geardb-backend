@@ -1,16 +1,8 @@
+import { TUserFollowEntity } from '@/domain/entities/user-follow.entity';
 import { DataTypes, Model, Sequelize } from 'sequelize';
 
-export interface UserFollowModelAttributes {
-    followerId: string;
-    followingId: string;
-    id: string;
-    createdAt: Date;
-    updatedAt: Date;
-    deletedAt: Date;
-}
-
 export default function defineUserFollowModel(sequelize: Sequelize) {
-    return sequelize.define<Model<UserFollowModelAttributes>>(
+    return sequelize.define<Model<TUserFollowEntity>>(
         'UserFollowModel',
         {
             followerId: { type: DataTypes.UUID, allowNull: false },

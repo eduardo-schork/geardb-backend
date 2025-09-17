@@ -2,6 +2,7 @@ import { TUserVehicleEntity } from '@/domain/entities/user-vehicle.entity';
 import { toUserVehicleEntity } from '@/infra/database/sequelize/mappers/user-vehicle.mapper';
 import defineUserVehicleModel from '@/infra/database/sequelize/models/user-vehicle.model';
 import sequelizeAdapter from '@/infra/database/sequelize/sequelize.adapter';
+import DatabasePort from '../../database.port';
 
 export class UserVehicleRepository {
     private model = defineUserVehicleModel(sequelizeAdapter.instance);
@@ -41,5 +42,19 @@ export class UserVehicleRepository {
         if (!record) return false;
         await record.destroy();
         return true;
+    }
+
+    async findByUserId(userId: string) {
+        const items = await DatabasePort.models.UserVehicleModel.findAll({
+            where: { userId },
+            include: [
+                {
+                    model: DatabasePort.models.VehicleModel,
+                    as: 'vehicle',
+                },
+            ],
+        });
+
+        return items;
     }
 }

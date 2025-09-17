@@ -9,4 +9,5 @@ export type TUserVehicleRepository = {
         updates: Partial<TUserVehicleEntity>,
     ): Promise<TUserVehicleEntity | null>;
     delete(id: string): Promise<boolean>;
+    findByUserId(userId: string): Promise<TUserVehicleEntity[]>;
 };

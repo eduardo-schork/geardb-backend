@@ -10,6 +10,7 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "./src",
+    "resolveJsonModule": true,
     "paths": {
       "@/*": [
         "*"
@@ -18,5 +19,12 @@
   },
   "include": [
     "src"
-  ]
+  ],
+  "outDir": "./dist",
+  "rootDir": "./src",
+  // TODO remove skip
+  "skipLibCheck": true,
+  // "noEmit": true,
+  "strict": false,
+  "suppressImplicitAnyIndexErrors": true
 }

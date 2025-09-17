@@ -16,6 +16,8 @@ export default function defineVehicleModel(sequelize: Sequelize) {
             version: { type: DataTypes.STRING, allowNull: false },
             year: { type: DataTypes.INTEGER, allowNull: false },
             label: { type: DataTypes.STRING, allowNull: false },
+            imageUrl: { type: DataTypes.STRING, allowNull: true },
+            isUserVehicle: { type: DataTypes.BOOLEAN, allowNull: true },
             createdAt: {
                 type: DataTypes.DATE,
                 defaultValue: DataTypes.NOW,

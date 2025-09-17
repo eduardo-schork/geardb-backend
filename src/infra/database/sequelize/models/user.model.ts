@@ -9,7 +9,7 @@ export default function defineUserModel(sequelize: Sequelize) {
             name: { type: DataTypes.STRING, allowNull: false },
             email: { type: DataTypes.STRING, allowNull: false },
             passwordHash: { type: DataTypes.STRING, allowNull: false },
-            profilePicture: { type: DataTypes.STRING, allowNull: true },
+            imageUrl: { type: DataTypes.TEXT, allowNull: true },
             bio: { type: DataTypes.TEXT, allowNull: true },
             id: {
                 type: DataTypes.UUID,

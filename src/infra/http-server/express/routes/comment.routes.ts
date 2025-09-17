@@ -3,7 +3,7 @@ import CommentController from '../controllers/comment.controller';
 
 const router = Router();
 
-router.get('/:commentId/replies', CommentController.getReplies); // <-- tem que vir antes
+router.get('/:commentId/replies', CommentController.getReplies);
 router.get('/:id', CommentController.findOne);
 router.post('/', CommentController.create);
 router.put('/:id', CommentController.update);

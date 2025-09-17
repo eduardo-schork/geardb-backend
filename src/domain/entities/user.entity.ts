@@ -4,7 +4,7 @@ export type TUserEntity = {
     name: string;
     email: string;
     passwordHash: string;
-    profilePicture: string | null;
+    imageUrl: string | null;
     bio: string | null;
     createdAt: Date;
     updatedAt: Date;

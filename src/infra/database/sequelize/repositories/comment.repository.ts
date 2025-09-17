@@ -1,10 +1,13 @@
-import { TCommentEntity } from '@/domain/entities/comment.entity';
+import { col, fn, literal, Op } from 'sequelize';
+
+import { TCommentApiResponse, TCommentEntity } from '@/domain/entities/comment.entity';
+import { TCommentRepository } from '@/domain/repositories/comment-repository.type';
 import { toCommentEntity } from '@/infra/database/sequelize/mappers/comment.mapper';
 import defineCommentModel from '@/infra/database/sequelize/models/comment.model';
 import sequelizeAdapter from '@/infra/database/sequelize/sequelize.adapter';
-import { Op } from 'sequelize';
+import DatabasePort from '../../database.port';
 
-export class CommentRepository {
+export class CommentRepository implements TCommentRepository {
     private model = defineCommentModel(sequelizeAdapter.instance);
 
     async findById(id: string): Promise<TCommentEntity | null> {
@@ -17,14 +20,56 @@ export class CommentRepository {
         return results.map(toCommentEntity);
     }
 
-    async findByTopicId(topicId: string): Promise<TCommentEntity[]> {
-        const items = await this.model.findAll({
+    async findByTopicId({
+        topicId,
+        userId,
+    }: {
+        topicId: string;
+        userId: string;
+    }): Promise<TCommentApiResponse[]> {
+        const { CommentModel } = DatabasePort.models;
+
+        const items = await CommentModel.findAll({
             where: {
                 topicId,
                 parentCommentId: { [Op.is]: null },
             },
+            attributes: {
+                include: [
+                    [fn('COUNT', col('likes.id')), 'likesCount'],
+                    [
+                        fn(
+                            'MAX',
+                            literal(
+                                `CASE WHEN "likes"."userId" = '${userId}' THEN 1 ELSE 0 END`,
+                            ),
+                        ),
+                        'isLiked',
+                    ],
+                ],
+            },
+            include: [
+                {
+                    association: 'author',
+                    attributes: ['username', 'imageUrl'],
+                },
+                {
+                    association: 'likes',
+                    attributes: [],
+                },
+            ],
+            group: ['CommentModel.id', 'author.id'],
+            order: [['createdAt', 'ASC']],
         });
-        return items.map(toCommentEntity);
+
+        return items.map((item) => {
+            const entity = toCommentEntity(item) as TCommentApiResponse;
+            entity.authorNickname = item.author?.username;
+            entity.authorImageUrl = item.author?.imageUrl;
+            entity.likesCount = parseInt(item.get('likesCount') as string, 10);
+            entity.isLiked = Boolean(parseInt(item.get('isLiked') as string, 10));
+            return entity;
+        });
     }
 
     async create(data: any): Promise<any> {
@@ -55,12 +100,52 @@ export class CommentRepository {
         return true;
     }
 
-    async findRepliesByParentCommentId(
-        parentCommentId: string,
-    ): Promise<TCommentEntity[]> {
-        const results = await this.model.findAll({
+    async findRepliesByParentCommentId({
+        parentCommentId,
+        userId,
+    }: {
+        parentCommentId: string;
+        userId: string;
+    }): Promise<TCommentApiResponse[]> {
+        const { CommentModel } = DatabasePort.models;
+
+        const items = await CommentModel.findAll({
             where: { parentCommentId },
+            attributes: {
+                include: [
+                    [fn('COUNT', col('likes.id')), 'likesCount'],
+                    [
+                        fn(
+                            'MAX',
+                            literal(
+                                `CASE WHEN "likes"."userId" = '${userId}' THEN 1 ELSE 0 END`,
+                            ),
+                        ),
+                        'isLiked',
+                    ],
+                ],
+            },
+            include: [
+                {
+                    association: 'author',
+                    attributes: ['username', 'imageUrl'],
+                },
+                {
+                    association: 'likes',
+                    attributes: [],
+                },
+            ],
+            group: ['CommentModel.id', 'author.id'],
+            order: [['createdAt', 'ASC']],
         });
-        return results.map(toCommentEntity);
+
+        return items.map((item) => {
+            const entity = toCommentEntity(item) as TCommentApiResponse;
+            entity.authorNickname = item.author?.username;
+            entity.authorImageUrl = item.author?.imageUrl;
+            entity.likesCount = parseInt(item.get('likesCount') as string, 10);
+            entity.isLiked = Boolean(parseInt(item.get('isLiked') as string, 10));
+            return entity;
+        });
     }
 }

@@ -10,7 +10,6 @@ export default function defineTopicModel(sequelize: Sequelize) {
             title: { type: DataTypes.STRING, allowNull: false },
             content: { type: DataTypes.STRING, allowNull: true },
             imageUrl: { type: DataTypes.STRING, allowNull: true },
-            isPinned: { type: DataTypes.BOOLEAN, allowNull: true },
             views: { type: DataTypes.INTEGER, allowNull: true },
             id: {
                 type: DataTypes.UUID,

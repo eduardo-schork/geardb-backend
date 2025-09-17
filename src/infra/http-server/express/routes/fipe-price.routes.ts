@@ -9,4 +9,6 @@ router.post('/', FipePriceController.create);
 router.put('/:id', FipePriceController.update);
 router.delete('/:id', FipePriceController.delete);
 
+router.get('/vehicle/:id', FipePriceController.getByVehicleId);
+
 export default router;

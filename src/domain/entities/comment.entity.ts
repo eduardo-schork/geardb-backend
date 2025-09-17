@@ -8,3 +8,11 @@ export type TCommentEntity = {
     updatedAt: Date;
     deletedAt?: Date | null;
 };
+
+export type TCommentApiResponse = TCommentEntity & {
+    likesCount: number;
+    isLiked: boolean;
+
+    authorNickname?: string;
+    authorImageUrl?: string;
+};

@@ -3,22 +3,29 @@ import { TSessionRepository } from '@/domain/repositories/session-repository.typ
 import { TUserRepository } from '@/domain/repositories/user-repository.type';
 import AuthProvider from '@/infra/auth/auth-provider.port';
 import CryptoPort from '@/infra/crypto/crypto.port';
+import { IFileStoragePort } from '@/infra/file-storage/file-storage.port';
+import { CreateUserUseCase } from '../create-user.usecase';
 
 type TRegisterUserInput = {
     username: string;
     name: string;
     email: string;
     password: string;
-    profilePicture?: string | null;
     bio?: string | null;
-    ipAddress: string;
+    profileImage?: {
+        filename: string;
+        buffer: Buffer;
+        mimetype: string;
+    };
+    ipAddress?: string;
     userAgent: string;
 };
 
 export class RegisterUserUseCase {
     constructor(
-        private userRepo: TUserRepository,
-        private sessionRepo: TSessionRepository,
+        private readonly userRepo: TUserRepository,
+        private readonly sessionRepo: TSessionRepository,
+        private readonly fileStorageService: IFileStoragePort,
     ) {}
 
     async execute(
@@ -31,28 +38,27 @@ export class RegisterUserUseCase {
 
         const passwordHash = await CryptoPort.hash(input.password);
 
-        const now = new Date();
+        const createUserUseCase = new CreateUserUseCase(
+            this.userRepo,
+            this.fileStorageService,
+        );
 
-        const user: Omit<TUserEntity, 'id'> = {
+        const createdUser = await createUserUseCase.execute({
             username: input.username,
             name: input.name,
             email: input.email,
             passwordHash,
-            profilePicture: input.profilePicture ?? null,
             bio: input.bio ?? null,
-            createdAt: now,
-            updatedAt: now,
-            deletedAt: null,
-        };
-
-        const createdUser = await this.userRepo.create(user);
+            profileImage: input.profileImage,
+        });
 
         const token = AuthProvider.generateToken({ userId: createdUser.id });
 
+        const now = new Date();
         const expiresAt = new Date(now);
         expiresAt.setDate(now.getDate() + 1);
 
-        const createdSession = await this.sessionRepo.create({
+        await this.sessionRepo.create({
             token,
             userId: createdUser.id,
             ipAddress: input.ipAddress,

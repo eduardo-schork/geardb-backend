@@ -5,9 +5,15 @@ export type TTopicEntity = {
     title: string;
     content: string;
     imageUrl: string;
-    isPinned: boolean;
     views: number;
     createdAt: Date;
     updatedAt: Date;
     deletedAt?: Date | null;
+};
+
+export type TTopicApiResponse = TTopicEntity & {
+    isLiked?: boolean;
+    likesCount?: number;
+    authorNickname?: string;
+    authorImageUrl?: string;
 };

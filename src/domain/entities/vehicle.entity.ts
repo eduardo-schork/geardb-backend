@@ -5,6 +5,8 @@ export type TVehicleEntity = {
     version: string;
     year: number;
     label: string;
+    imageUrl?: string;
+    isUserVehicle?: boolean;
     createdAt: Date;
     updatedAt: Date;
     deletedAt?: Date | null;

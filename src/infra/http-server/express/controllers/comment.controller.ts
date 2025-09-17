@@ -5,6 +5,7 @@ import { Request, Response } from 'express';
 
 const repo = new CommentRepository();
 const findRepliesUseCase = new FindRepliesUseCase(repo);
+const findCommentsByTopicIdUseCase = new FindCommentsByTopicIdUseCase(repo);
 
 async function findAll(req: Request, res: Response) {
     const result = await repo.findAll();
@@ -36,27 +37,29 @@ async function remove(req: Request, res: Response) {
 
 const findByTopicId = async (req: Request, res: Response) => {
     const topicId = req.query.topicId as string;
+    const userId = req.user.userId;
 
     if (!topicId) {
         return res.status(400).json({ error: 'topicId param is required' });
     }
 
-    const useCase = new FindCommentsByTopicIdUseCase(repo);
-    const comments = await useCase.execute(topicId);
-
-    return res.status(200).json(comments);
+    const replies = await findCommentsByTopicIdUseCase.execute({ topicId, userId });
+    return res.status(200).json(replies);
 };
 
 async function getReplies(req: Request, res: Response) {
     try {
         const commentId = req.params.commentId;
-        const replies = await findRepliesUseCase.execute(commentId);
+        const userId = req.user.userId;
+
+        const replies = await findRepliesUseCase.execute({
+            parentCommentId: commentId,
+            userId,
+        });
         return res.status(200).json(replies);
     } catch (error) {
         console.error('❌ Erro ao buscar replies:', error);
-        return res
-            .status(500)
-            .json({ message: 'Erro interno ao buscar replies' });
+        return res.status(500).json({ message: 'Erro interno ao buscar replies' });
     }
 }
 

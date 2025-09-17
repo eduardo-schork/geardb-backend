@@ -33,10 +33,7 @@ export class UserRepository {
         return toUserEntity(result);
     }
 
-    async update(
-        id: string,
-        updates: Partial<TUserEntity>,
-    ): Promise<TUserEntity | null> {
+    async update(id: string, updates: Partial<TUserEntity>): Promise<TUserEntity | null> {
         const record = await this.model.findByPk(id);
         if (!record) return null;
         await record.update({ ...updates, updatedAt: new Date() } as any);

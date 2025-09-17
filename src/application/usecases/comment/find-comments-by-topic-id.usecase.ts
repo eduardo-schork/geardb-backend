@@ -4,7 +4,13 @@ import { TCommentRepository } from '@/domain/repositories/comment-repository.typ
 export class FindCommentsByTopicIdUseCase {
     constructor(private readonly commentRepo: TCommentRepository) {}
 
-    async execute(topicId: string): Promise<TCommentEntity[]> {
-        return await this.commentRepo.findByTopicId(topicId);
+    async execute({
+        topicId,
+        userId,
+    }: {
+        topicId: string;
+        userId: string;
+    }): Promise<TCommentEntity[]> {
+        return await this.commentRepo.findByTopicId({ topicId, userId });
     }
 }

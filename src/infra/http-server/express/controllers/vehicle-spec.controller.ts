@@ -1,4 +1,4 @@
-import { FindVehicleSpecByVehicleIdUseCase } from '@/application/usecases/find-vehicle-spec-by-vehicle-id.usecase';
+import { FindVehicleSpecByVehicleIdUseCase } from '@/application/usecases/vehicle/find-vehicle-spec-by-vehicle-id.usecase';
 import { VehicleSpecRepository } from '@/infra/database/sequelize/repositories/vehicle-spec.repository';
 import { Request, Response } from 'express';
 

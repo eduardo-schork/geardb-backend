@@ -11,6 +11,7 @@ export function toVehicleEntity(model: Model<TVehicleEntity>): TVehicleEntity {
         model: data.model,
         year: data.year,
         label: data.label,
+        imageUrl: data.imageUrl,
         createdAt: data.createdAt,
         updatedAt: data.updatedAt,
         deletedAt: data.deletedAt,
