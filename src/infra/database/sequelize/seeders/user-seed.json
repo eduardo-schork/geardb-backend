@@ -1,0 +1,92 @@
+[
+    {
+        "id": "1e9b7a7a-5d3b-4a4c-9e3e-01a1efc12b21",
+        "username": "gearhead01",
+        "name": "Eduardo Schork",
+        "email": "eduardo.schork@example.com",
+        "passwordHash": "$2a$10$ExemploHashSenha01",
+        "imageUrl": "https://i.pravatar.cc/300?img=1",
+        "bio": "Apaixonado por carros, tecnologia e performance."
+    },
+    {
+        "id": "2a7f9f99-7cd3-4a8d-9ecf-4b6f74d8a64a",
+        "username": "speedlover",
+        "name": "Amanda Costa",
+        "email": "amanda.costa@example.com",
+        "passwordHash": "$2a$10$ExemploHashSenha02",
+        "imageUrl": "https://i.pravatar.cc/300?img=2",
+        "bio": "Fã de carros esportivos e track days."
+    },
+    {
+        "id": "3f64c9a2-8d3c-4d2a-88d9-72e3627cc5b8",
+        "username": "classicman",
+        "name": "Bruno Lima",
+        "email": "bruno.lima@example.com",
+        "passwordHash": "$2a$10$ExemploHashSenha03",
+        "imageUrl": "https://i.pravatar.cc/300?img=3",
+        "bio": "Restaurador de clássicos e apaixonado por elegância automotiva."
+    },
+    {
+        "id": "4cf0b6a2-45d2-49c5-b8f7-5070c321c792",
+        "username": "offroadking",
+        "name": "Carlos Alberto",
+        "email": "carlos.alberto@example.com",
+        "passwordHash": "$2a$10$ExemploHashSenha04",
+        "imageUrl": "https://i.pravatar.cc/300?img=4",
+        "bio": "Explorando trilhas e desafios fora de estrada."
+    },
+    {
+        "id": "5d2b74a9-8b3a-4961-91f7-7cc38a927c64",
+        "username": "boostedlife",
+        "name": "Fernanda Rocha",
+        "email": "fernanda.rocha@example.com",
+        "passwordHash": "$2a$10$ExemploHashSenha05",
+        "imageUrl": "https://i.pravatar.cc/300?img=5",
+        "bio": "Amo turbos, preparação e velocidade máxima."
+    },
+    {
+        "id": "6c3a9f8f-7ad2-4fcd-b32e-5094f1c2789a",
+        "username": "electricfuture",
+        "name": "Lucas Ferreira",
+        "email": "lucas.ferreira@example.com",
+        "passwordHash": "$2a$10$ExemploHashSenha06",
+        "imageUrl": "https://i.pravatar.cc/300?img=6",
+        "bio": "Fã de tecnologia automotiva e elétricos."
+    },
+    {
+        "id": "7e0a3c0f-45e2-4b4d-bb5a-c68ab3f8a9cc",
+        "username": "trackdayaddict",
+        "name": "Mariana Souza",
+        "email": "mariana.souza@example.com",
+        "passwordHash": "$2a$10$ExemploHashSenha07",
+        "imageUrl": "https://i.pravatar.cc/300?img=7",
+        "bio": "Todo final de semana é dia de acelerar na pista."
+    },
+    {
+        "id": "8b2f9e9d-6cd3-478b-9e64-0b4c1ec13af1",
+        "username": "dieselpower",
+        "name": "Renato Mendes",
+        "email": "renato.mendes@example.com",
+        "passwordHash": "$2a$10$ExemploHashSenha08",
+        "imageUrl": "https://i.pravatar.cc/300?img=8",
+        "bio": "Apaixonado por picapes e força bruta."
+    },
+    {
+        "id": "9a6c5d3b-78af-4f93-9e1d-9e9d3e7f2a3f",
+        "username": "stanceboy",
+        "name": "Thiago Oliveira",
+        "email": "thiago.oliveira@example.com",
+        "passwordHash": "$2a$10$ExemploHashSenha09",
+        "imageUrl": "https://i.pravatar.cc/300?img=9",
+        "bio": "Baixo é vida, estilo em primeiro lugar."
+    },
+    {
+        "id": "10e0c9f1-5d12-49c7-92e5-c6d97f0e7b12",
+        "username": "supercarfan",
+        "name": "Isabela Martins",
+        "email": "isabela.martins@example.com",
+        "passwordHash": "$2a$10$ExemploHashSenha10",
+        "imageUrl": "https://i.pravatar.cc/300?img=10",
+        "bio": "Sonhando e vivendo o mundo dos superesportivos."
+    }
+]
